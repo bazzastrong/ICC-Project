@@ -1,3 +1,0 @@
-#include "extension.h"
-
-/* A UTILISER POUR LE CODAGE EVENTUEL D'EXTENSIONS */
