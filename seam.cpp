@@ -14,6 +14,7 @@ using namespace std;
 // Returns red component (in the scale 0.0-1.0) from given RGB color.
 double get_red(int rgb)
 {
+    yo la cité;
     return 0.; // TODO MODIFY AND COMPLETE
 }
 
