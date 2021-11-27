@@ -14,19 +14,30 @@ using namespace std;
 // Returns red component (in the scale 0.0-1.0) from given RGB color.
 double get_red(int rgb)
 { 
-    return 0.; // TODO MODIFY AND COMPLETE
+    int r0 = rgb >> 16;
+    int r = r0 & 0b11111111;
+    double doubleR = r / 255.00;
+
+    return doubleR; // TODO MODIFY AND COMPLETE
 }
 
 // Returns green component (in the scale 0.0-1.0) from given RGB color.
 double get_green(int rgb)
 {
-    return 0.; // TODO MODIFY AND COMPLETE
+    int g0 = rgb >> 8;
+    int g = g0 & 0b11111111;
+    double doubleG = g / 255.00;
+
+    return doubleG; // TODO MODIFY AND COMPLETE
 }
 
 // Returns blue component (in the scale 0.0-1.0) from given RGB color.
 double get_blue(int rgb)
 {
-    return 0.; // TODO COMPLETE AND MODIFY
+    int b = rgb & 0b11111111;
+    double doubleB = rgb / 255.00;
+
+    return doubleB; // TODO COMPLETE AND MODIFY
 }
 
 // Returns the average of red, green and blue components from given RGB color. (Scale: 0.0-1.0)
@@ -54,6 +65,13 @@ int get_RGB(double gray)
 // Converts  RGB image to grayscale double image.
 GrayImage to_gray(const RGBImage &cimage)
 {
+    for(size_t i(0); i<RGBImage.size();i++)
+    {
+        for(size_t j(0); j < RGBImage[0].size();j++)
+        {
+            RGBImage[i][j]=get_gray(RGBImage[i][j]);
+        }
+    }
 
     return {}; // TODO MODIFY AND COMPLETE
 }
