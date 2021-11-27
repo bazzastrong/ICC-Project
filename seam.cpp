@@ -13,7 +13,7 @@ using namespace std;
 
 // Returns red component (in the scale 0.0-1.0) from given RGB color.
 double get_red(int rgb)
-{
+{ 
     return 0.; // TODO MODIFY AND COMPLETE
 }
 
@@ -32,7 +32,10 @@ double get_blue(int rgb)
 // Returns the average of red, green and blue components from given RGB color. (Scale: 0.0-1.0)
 double get_gray(int rgb)
 {
-    return 0; // TODO MODIFY AND COMPLETE
+    double gray;
+    gray = (get_red(rgb) + get_green(rgb) + get_blue(rgb))/3;
+
+    return gray; // TODO MODIFY AND COMPLETE
 }
 
 // Returns the RGB value of the given red, green and blue components.
