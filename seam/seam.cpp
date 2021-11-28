@@ -3,6 +3,7 @@
 #include <tgmath.h>
 #include <vector>
 
+#include "extension.h"
 #include "seam.h"
 
 using namespace std;
@@ -13,53 +14,73 @@ using namespace std;
 
 // Returns red component (in the scale 0.0-1.0) from given RGB color.
 double get_red(int rgb){
-    
-return 0.;
+    int r0 = rgb >> 16;
+    int r = r0 & 0b11111111;
+    double doubleR = r / 255.00;
+return doubleR;
 }
 
 // Returns green component (in the scale 0.0-1.0) from given RGB color.
-double get_green(int rgb)
-{
-    return 0.; // TODO MODIFY AND COMPLETE
+double get_green(int rgb) {
+    int g0 = rgb >> 8;
+    int g = g0 & 0b11111111;
+    double doubleG = g / 255.00;
+return doubleG;
 }
 
 // Returns blue component (in the scale 0.0-1.0) from given RGB color.
-double get_blue(int rgb)
-{
-    return 0.; // TODO COMPLETE AND MODIFY
+double get_blue(int rgb){
+    int b = rgb & 0b11111111;
+    double doubleB = rgb / 255.00;
+return doubleB; 
 }
 
 // Returns the average of red, green and blue components from given RGB color. (Scale: 0.0-1.0)
-double get_gray(int rgb)
-{
-    return 0; // TODO MODIFY AND COMPLETE
+double get_gray(int rgb) {
+    double gray = (get_red(rgb) + get_green(rgb) + get_blue(rgb)) / 3;
+return gray;
 }
 
 // Returns the RGB value of the given red, green and blue components.
-int get_RGB(double red, double green, double blue)
-{
-
-    return 0; // TODO MODIFY AND COMPLETE
+int get_RGB(double red, double green, double blue){
+    int r0 = red * 255;
+    int g0 = green * 255;
+    int b0 = blue * 255;
+    int bin_r(Dec_to_bin(r0)), bin_g(Dec_to_bin(g0)), bin_b(Dec_to_bin(b0));
+    int bin_RGB = bin_r << 16 + bin_g << 8 + bin_b;
+return bin_RGB;
 }
 
 // Returns the RGB components from given grayscale value (between 0.0 and 1.0).
-int get_RGB(double gray)
-{
-    return 0; // TODO MODIFY AND COMPLETE
+int get_RGB(double gray){
+    int colour0 = (gray / 3) * 255;
+    int bin_colour(Dec_to_bin(colour0));
+    int bin_RGB = bin_colour << 16 + bin_colour << 8 + bin_colour;
+return bin_RGB; 
 }
 
 // Converts  RGB image to grayscale double image.
-GrayImage to_gray(const RGBImage &cimage)
-{
-
-    return {}; // TODO MODIFY AND COMPLETE
+GrayImage to_gray(const RGBImage &cimage){
+    for (size_t i(0); i < RGBImage.size(); i++)
+    {
+        for (size_t j(0); j < RGBImage[0].size(); j++)
+        {
+            Graymage[i][j] = get_gray(RGBImage[i][j]);
+        }
+    }
+return GrayImage; // TODO MODIFY AND COMPLETE
 }
 
 // Converts grayscale double image to an RGB image.
-RGBImage to_RGB(const GrayImage &gimage)
-{
-
-    return {}; // TODO MODIFY AND COMPLETE
+RGBImage to_RGB(const GrayImage &gimage){
+    for (size_t i(0); i < GrayImage.size(); i++)
+    {
+        for (size_t j(0); j < GrayImage[0].size(); j++)
+        {
+            RGBImage[i][j] = get_RGB(GrayImage[i][j]);
+        }
+    }
+return RGBImage;
 }
 
 // ***********************************
