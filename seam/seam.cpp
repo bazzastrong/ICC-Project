@@ -61,26 +61,28 @@ return bin_RGB;
 
 // Converts  RGB image to grayscale double image.
 GrayImage to_gray(const RGBImage &cimage){
-    for (size_t i(0); i < RGBImage.size(); i++)
+    GrayImage cimage_in_gray;
+    for (size_t i(0); i < cimage.size(); i++)
     {
-        for (size_t j(0); j < RGBImage[0].size(); j++)
+        for (size_t j(0); j < cimage[0].size(); j++)
         {
-            Graymage[i][j] = get_gray(RGBImage[i][j]);
+            cimage_in_gray[i][j] = get_gray(cimage[i][j]);
         }
     }
-return GrayImage; // TODO MODIFY AND COMPLETE
+return cimage_in_gray; // TODO MODIFY AND COMPLETE
 }
 
 // Converts grayscale double image to an RGB image.
 RGBImage to_RGB(const GrayImage &gimage){
-    for (size_t i(0); i < GrayImage.size(); i++)
+    RGBImage gimage_in_col;
+    for (size_t i(0); i < gimage.size(); i++)
     {
-        for (size_t j(0); j < GrayImage[0].size(); j++)
+        for (size_t j(0); j < gimage[0].size(); j++)
         {
-            RGBImage[i][j] = get_RGB(GrayImage[i][j]);
+            gimage_in_col[i][j] = get_RGB(gimage[i][j]);
         }
     }
-return RGBImage;
+return gimage_in_col;
 }
 
 // ***********************************
