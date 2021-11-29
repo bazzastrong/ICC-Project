@@ -47,10 +47,7 @@ int get_RGB(double red, double green, double blue){
     int g0 = green * 255;
     int b0 = blue * 255;
     int bin_r(Dec_to_bin(r0)), bin_g(Dec_to_bin(g0)), bin_b(Dec_to_bin(b0));
-    int bin_RGB = 0b00000000; 
-    bin_RGB = bin_RGB << 8 + bin_r;
-    bin_RGB = bin_RGB << 8 + bin_g;
-    bin_RGB = bin_RGB << 8 + bin_b;
+    int bin_RGB = (0b00000000 << 24) +(bin_r << 16) + (bin_g << 8) + (bin_b);
 return bin_RGB;
 }
 
@@ -92,42 +89,61 @@ return gimage_in_col;
 
 // Get a pixel without accessing out of bounds
 // return nearest valid pixel color
-void clamp(long &val, long max)
-{
-    // TODO : COMPLETE
+void clamp(long &val, long max){ 
+    if(val<0){
+        val = 0;
+    }
+    if(val>= max){
+        val=max;
+    }
 }
 
 // Convolve a single-channel image with the given kernel.
-GrayImage filter(const GrayImage &gray, const Kernel &kernel)
-{
-    return {}; // TODO MODIFY AND COMPLETE
+GrayImage filter(const GrayImage &gray, const Kernel &kernel){
+    size_t s, t;
+    GrayImage filtered_image;
+        for (size_t i(0); i < gray.size(); i++){
+            filtered_image.push_back(vector<double> (0.0));
+            for (size_t j(0); j < gray[0].size(); j++){
+                filtered_image[i].push_back(0.0);
+                for (size_t ligne_kernel(0); ligne_kernel < kernel.size(); ligne_kernel++){
+                    for (size_t col_kernel(0); col_kernel < kernel[0].size(); col_kernel++){
+                        s = i - kernel.size() / 2 + ligne_kernel;
+                        t = j - kernel[0].size() / 2 + col_kernel;
+                        clamp(s);
+                        clamp(t);
+                        filtered_image[i][j] += gray[s][t] * kernel[ligne_kernel][col_kernel];
+                    }
+                }
+
+            }
+        }
+    return filtered_image;
 }
 
 // Smooth a single-channel image
-GrayImage smooth(const GrayImage &gray)
-{
-    return {}; // TODO MODIFY AND COMPLETE
+GrayImage smooth(const GrayImage &gray){
+    
+return {}; // TODO MODIFY AND COMPLETE
 }
 
 // Compute horizontal Sobel filter
-
-GrayImage sobelX(const GrayImage &gray)
-{
-    return {}; // TODO MODIFY AND COMPLETE
+GrayImage sobelX(const GrayImage &gray){
+    
+return {}; // TODO MODIFY AND COMPLETE
 }
 
 // Compute vertical Sobel filter
-
-GrayImage sobelY(const GrayImage &gray)
-{
-    return {}; // TODO MODIFY AND COMPLETE
+GrayImage sobelY(const GrayImage &gray){
+    
+return {}; // TODO MODIFY AND COMPLETE
 }
 
 // Compute the magnitude of combined Sobel filters
 
-GrayImage sobel(const GrayImage &gray)
-{
-    return {}; // TODO MODIFY AND COMPLETE
+GrayImage sobel(const GrayImage &gray){
+    
+return {}; // TODO MODIFY AND COMPLETE
 }
 
 // ************************************
