@@ -47,7 +47,7 @@ int get_RGB(double red, double green, double blue){
     int g0 = green * 255;
     int b0 = blue * 255;
     int bin_r(Dec_to_bin(r0)), bin_g(Dec_to_bin(g0)), bin_b(Dec_to_bin(b0));
-    int bin_RGB = 0b00000000 << 24 + bin_r << 16 + bin_g << 8 + bin_b;
+    int bin_RGB = (0b00000000 << 24) + (bin_r << 16) + (bin_g << 8) + (bin_b);
 return bin_RGB;
 }
 
@@ -55,7 +55,7 @@ return bin_RGB;
 int get_RGB(double gray){
     int colour0 = (gray / 3) * 255;
     int bin_colour(Dec_to_bin(colour0));
-    int bin_RGB = 0b00000000 << 24 + bin_colour << 16 + bin_colour << 8 + bin_colour;
+    int bin_RGB = (0b00000000 << 24) + (bin_colour << 16) + (bin_colour << 8) + (bin_colour);
 return bin_RGB; 
 }
 
