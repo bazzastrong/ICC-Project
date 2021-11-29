@@ -65,7 +65,7 @@ return bin_RGB;
 GrayImage to_gray(const RGBImage &cimage){
     GrayImage cimage_in_gray;
     for (size_t i(0); i < cimage.size(); i++){
-        cimage_in_gray.push_back(vector<double> (0.0));
+        cimage_in_gray.push_back(vector<double> (0));
         for (size_t j(0); j < cimage[0].size(); j++){
             cimage_in_gray[i].push_back(get_gray(cimage[i][j]));
         }
