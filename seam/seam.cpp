@@ -31,7 +31,7 @@ return doubleG;
 // Returns blue component (in the scale 0.0-1.0) from given RGB color.
 double get_blue(int rgb){
     int b = rgb & 0b11111111;
-    double doubleB = rgb / 255.00;
+    double doubleB = b / 255.00;
 return doubleB; 
 }
 
