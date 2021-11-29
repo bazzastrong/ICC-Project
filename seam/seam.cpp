@@ -47,7 +47,8 @@ int get_RGB(double red, double green, double blue){
     int g0 = green * 255;
     int b0 = blue * 255;
     int bin_r(Dec_to_bin(r0)), bin_g(Dec_to_bin(g0)), bin_b(Dec_to_bin(b0));
-    int bin_RGB = bin_r << 16 + bin_g << 8 + bin_b;
+    int bin_RGB(0b00000000);
+    int bin_RGB = bin_RGB << 24 + bin_r << 16 + bin_g << 8 + bin_b;
 return bin_RGB;
 }
 
@@ -55,31 +56,30 @@ return bin_RGB;
 int get_RGB(double gray){
     int colour0 = (gray / 3) * 255;
     int bin_colour(Dec_to_bin(colour0));
-    int bin_RGB = bin_colour << 16 + bin_colour << 8 + bin_colour;
+    int bin_RGB(0b00000000);
+    int bin_RGB = bin_RGB << 24 + bin_colour << 16 + bin_colour << 8 + bin_colour;
 return bin_RGB; 
 }
 
 // Converts  RGB image to grayscale double image.
 GrayImage to_gray(const RGBImage &cimage){
     GrayImage cimage_in_gray;
-    for (size_t i(0); i < cimage.size(); i++)
-    {
-        for (size_t j(0); j < cimage[0].size(); j++)
-        {
-            cimage_in_gray[i][j] = get_gray(cimage[i][j]);
+    for (size_t i(0); i < cimage.size(); i++){
+        cimage_in_gray.push_back(vector<double> (0.0));
+        for (size_t j(0); j < cimage[0].size(); j++){
+            cimage_in_gray[i].push_back(get_gray(cimage[i][j]));
         }
     }
-return cimage_in_gray; // TODO MODIFY AND COMPLETE
+return cimage_in_gray;
 }
 
 // Converts grayscale double image to an RGB image.
 RGBImage to_RGB(const GrayImage &gimage){
     RGBImage gimage_in_col;
-    for (size_t i(0); i < gimage.size(); i++)
-    {
-        for (size_t j(0); j < gimage[0].size(); j++)
-        {
-            gimage_in_col[i][j] = get_RGB(gimage[i][j]);
+    for (size_t i(0); i < gimage.size(); i++){
+        gimage_in_col.push_back(vector<int> (0));
+        for (size_t j(0); j < gimage[0].size(); j++){
+            gimage_in_col[i].push_back(get_RGB(gimage[i][j]));
         }
     }
 return gimage_in_col;
