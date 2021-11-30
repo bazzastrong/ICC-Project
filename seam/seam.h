@@ -22,7 +22,7 @@ GrayImage to_gray(const RGBImage &cimage);
 RGBImage to_RGB(const GrayImage &gimage);
 
 //  TASK 2: FILTER
-inline void clamp(int &val, int max);
+void clamp(long& val, long max);
 
 GrayImage filter(const GrayImage &gray, const Kernel &kernel);
 GrayImage smooth(const GrayImage &gray);

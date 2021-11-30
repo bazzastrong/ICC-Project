@@ -91,7 +91,7 @@ return gimage_in_col;
 
 // Get a pixel without accessing out of bounds
 // return nearest valid pixel color
-void clamp(long &val, long max){ 
+void clamp(long& val, long max){ 
     if(val<0){
         val = 0;
     }
