@@ -213,19 +213,19 @@ void test_color()
         std::cerr << "With color " << color_info.name << ":" << std::endl;
         int const color = std::get<0>(color_info.fields);
         std::cerr << "Testing get_red(): ";
-        check_equal(get_red(color), std::get<1>(color_info.fields));
+        check_equal(std::get<1>(color_info.fields), get_red(color));
         std::cerr << "Testing get_green(): ";
-        check_equal(get_green(color), std::get<2>(color_info.fields));
+        check_equal(std::get<2>(color_info.fields), get_green(color));
         std::cerr << "Testing get_blue(): ";
-        check_equal(get_blue(color), std::get<3>(color_info.fields));
+        check_equal(std::get<3>(color_info.fields), get_blue(color));
         std::cerr << "Testing get_gray(): ";
-        check_equal(get_gray(color), std::get<4>(color_info.fields));
+        check_equal(std::get<4>(color_info.fields), get_gray(color));
         std::cerr << std::endl;
     }
 
     std::cerr << "Testing get_RGB(): " << std::endl;
-    check_equal(get_RGB(0.0, 0.0, 1.0), 255);
-    check_equal(get_RGB(0.5), 8355711);
+    check_equal(255, get_RGB(0.0, 0.0, 1.0));
+    check_equal(8355711, get_RGB(0.5));
 }
 
 // example in page 6:
@@ -538,17 +538,17 @@ void run_unit_tests()
     test_to_gray_3_3();
     test_to_gray_4_4();
     test_to_gray_5_5();
-    //test_sobelX_1();
-    //test_sobelX_2();
-    //test_sobelX_3();
-    //test_sobelY_1();
-    //test_sobelY_2();
-    //test_sobelY_3();
-    //test_sobel_1();
-    //test_smooth_1();
-    //test_create_graph_1();
-    //test_create_graph_2();
-    //test_shortest_path_1();
-    //test_shortest_path_2();
-    //test_find_seam_1();
+    test_sobelX_1();
+    test_sobelX_2();
+    test_sobelX_3();
+    test_sobelY_1();
+    test_sobelY_2();
+    test_sobelY_3();
+    test_sobel_1();
+    test_smooth_1();
+    test_create_graph_1();
+    test_create_graph_2();
+    test_shortest_path_1();
+    test_shortest_path_2();
+    test_find_seam_1();
 }

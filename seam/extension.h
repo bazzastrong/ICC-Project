@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
-int Dec_to_bin(int num);
+int decimal_to_binary(int num);
 /* A UTILISER POUR LE CODAGE EVENTUEL D'EXTENSIONS */
