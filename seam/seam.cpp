@@ -53,11 +53,7 @@ return bin_RGB;
 
 // Returns the RGB components from given grayscale value (between 0.0 and 1.0).
 int get_RGB(double gray){
-    int colour0 = (gray / 3) * 255;
-    int bin_RGB = 0b00000000;
-    bin_RGB = (bin_RGB << 8) + colour0; 
-    bin_RGB = (bin_RGB << 8) + colour0;
-    bin_RGB = (bin_RGB << 8) + colour0;
+    int bin_RGB(get_RGB(gray, gray, gray));
 return bin_RGB; 
 }
 
