@@ -3,7 +3,6 @@
 #include <tgmath.h>
 #include <vector>
 
-#include "extension.h"
 #include "seam.h"
 
 using namespace std;
@@ -45,16 +44,19 @@ return gray;
 int get_RGB(double red, double green, double blue){
     int r0(red * 255), g0(green * 255), b0(blue * 255);
     int bin_RGB = 0b00000000;
-    bin_RGB = bin_RGB << 8 + decimal_to_binary(r0); 
-    bin_RGB = bin_RGB << 8 + decimal_to_binary(g0);
-    bin_RGB = bin_RGB << 8 + decimal_to_binary(b0);
+    bin_RGB = (bin_RGB << 8) + r0; 
+    bin_RGB = (bin_RGB << 8) + g0;
+    bin_RGB = (bin_RGB << 8) + b0;
 return bin_RGB;
 }
 
 // Returns the RGB components from given grayscale value (between 0.0 and 1.0).
 int get_RGB(double gray){
     int colour0 = (gray / 3) * 255;
-    int bin_RGB = (0b00000000 << 24) + (decimal_to_binary(colour0) << 16) + (decimal_to_binary(colour0) << 8) + (decimal_to_binary(colour0));
+    int bin_RGB = 0b00000000;
+    bin_RGB = (bin_RGB << 8) + colour0; 
+    bin_RGB = (bin_RGB << 8) + colour0;
+    bin_RGB = (bin_RGB << 8) + colour0;
 return bin_RGB; 
 }
 
