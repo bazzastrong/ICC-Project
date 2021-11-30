@@ -121,9 +121,9 @@ GrayImage filter(const GrayImage &gray, const Kernel &kernel){
 
 // Smooth a single-channel image
 GrayImage smooth(const GrayImage &gray){
-    Kernel smoother {{1/10, 1/10,  1/10},
-                        {1/10, 2/10, 1/10},
-                        {1/10,1/10, 1/10}};
+    Kernel smoother {{0.10, 0.10,  0.10},
+                        {0.10, 0.20, 0.10},
+                        {0.10, 0.10, 0.10}};
 return filter(gray, smoother);
 }
 
