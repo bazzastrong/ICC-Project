@@ -104,15 +104,15 @@ GrayImage filter(const GrayImage &gray, const Kernel &kernel){
     size_t s, t;
     GrayImage filtered_image;
         for (size_t i(0); i < gray.size(); i++){
-            filtered_image.push_back(vector<double> (0.0));
+            filtered_image.push_back(vector<double> (0));
             for (size_t j(0); j < gray[0].size(); j++){
                 filtered_image[i].push_back(0.0);
                 for (size_t ligne_kernel(0); ligne_kernel < kernel.size(); ligne_kernel++){
                     for (size_t col_kernel(0); col_kernel < kernel[0].size(); col_kernel++){
-                        s = i - kernel.size() / 2 + ligne_kernel;
-                        t = j - kernel[0].size() / 2 + col_kernel;
-                        clamp(s, kernel.size());
-                        clamp(t, kernel[0].size());
+                        s = i - (kernel.size() - 1) / 2 + ligne_kernel;
+                        clamp(s, gray.size());
+                        t = j - (kernel[0].size() - 1) / 2 + col_kernel;
+                        clamp(t, gray[0].size());
                         filtered_image[i][j] += gray[s][t] * kernel[ligne_kernel][col_kernel];
                     }
                 }
@@ -124,7 +124,7 @@ GrayImage filter(const GrayImage &gray, const Kernel &kernel){
 
 // Smooth a single-channel image
 GrayImage smooth(const GrayImage &gray){
-    
+      
 return {}; // TODO MODIFY AND COMPLETE
 }
 
