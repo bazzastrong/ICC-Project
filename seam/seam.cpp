@@ -149,22 +149,17 @@ return filter(gray, sobelerY);
 
 // Compute the magnitude of combined Sobel filters
 GrayImage sobel(const GrayImage &gray){
-    Kernel sobelerX {{-1, 0, 1},
-                    {-2, 0, 2},
-                    {-1, 0, 1}};
-    GrayImage sobeleredX = filter(gray, sobelerX);
-    Kernel sobelerY{{-1, -2, -1},
-                    {0, 0, 0,},
-                    {1, 2, 1}};
-    GrayImage SobeleredY = filter(gray, sobelerY);
+    GrayImage sobeleredX = sobelX(gray);
+    GrayImage SobeleredY = sobelY(gray);
     GrayImage Sobelered;
     for (int i(0); i < gray.size(); ++i){
         Sobelered.push_back(vector<double> (0));
-        for (int j(0); j < gray[0].size(); ++j)
+        for (int j(0); j < gray[0].size(); ++j){
             Sobelered[i].push_back(0.0);
-            Sobelered[i][j] = sqrt((sobeleredX[i][j])^2) + sqrt((SobeleredY[i][j])^2);
+            Sobelered[i][j] = sqrt(pow(sobeleredX[i][j],2) + pow(SobeleredY[i][j], 2));
+        }
     }
-return {}; 
+return Sobelered;
 }
 
 // ************************************
