@@ -2,6 +2,7 @@
 #include <limits>
 #include <tgmath.h>
 #include <vector>
+#include <cmath>
 
 #include "seam.h"
 
@@ -101,7 +102,7 @@ void clamp(long &val, long max){
 
 // Convolve a single-channel image with the given kernel.
 GrayImage filter(const GrayImage &gray, const Kernel &kernel){
-    size_t s, t;
+    long s, t;
     GrayImage filtered_image;
         for (size_t i(0); i < gray.size(); i++){
             filtered_image.push_back(vector<double> (0));
@@ -110,9 +111,9 @@ GrayImage filter(const GrayImage &gray, const Kernel &kernel){
                 for (size_t ligne_kernel(0); ligne_kernel < kernel.size(); ligne_kernel++){
                     for (size_t col_kernel(0); col_kernel < kernel[0].size(); col_kernel++){
                         s = i - (kernel.size() - 1) / 2 + ligne_kernel;
-                        clamp(s, gray.size());
+                        clamp(s, gray.size() - 1);
                         t = j - (kernel[0].size() - 1) / 2 + col_kernel;
-                        clamp(t, gray[0].size());
+                        clamp(t, gray[0].size() - 1);
                         filtered_image[i][j] += gray[s][t] * kernel[ligne_kernel][col_kernel];
                     }
                 }
@@ -124,27 +125,32 @@ GrayImage filter(const GrayImage &gray, const Kernel &kernel){
 
 // Smooth a single-channel image
 GrayImage smooth(const GrayImage &gray){
-      
-return {}; // TODO MODIFY AND COMPLETE
+    Kernel smoother {{1/10, 1/10,  1/10},
+                        {1/10, 2/10, 1/10},
+                        {1/10,1/10, 1/10}};
+return filter(gray, smoother);
 }
 
 // Compute horizontal Sobel filter
 GrayImage sobelX(const GrayImage &gray){
-    
-return {}; // TODO MODIFY AND COMPLETE
+    Kernel sobelerX {{-1, 0, 1},
+                    {-2, 0, 2},
+                    {-1, 0, 1}};
+return filter(gray, sobelerX);
 }
 
 // Compute vertical Sobel filter
 GrayImage sobelY(const GrayImage &gray){
-    
-return {}; // TODO MODIFY AND COMPLETE
+    Kernel sobelerY{{-1, -2, -1},
+                    {0, 0, 0,},
+                    {1, 2, 1}};
+return filter(gray, sobelerY);
 }
 
 // Compute the magnitude of combined Sobel filters
-
 GrayImage sobel(const GrayImage &gray){
-    
-return {}; // TODO MODIFY AND COMPLETE
+    Kernel sobeler {{sqrt()}};
+return {}; 
 }
 
 // ************************************
