@@ -149,32 +149,43 @@ return filter(gray, sobelerY);
 
 // Compute the magnitude of combined Sobel filters
 GrayImage sobel(const GrayImage &gray){
-    Kernel sobeler {{sqrt(2), 2, sqrt(2)},
-                    {2, 0, 2},
-                    {sqrt(2), 2, sqrt(2)}};
-return filter(gray, sobeler); 
+    Kernel sobelerX {{-1, 0, 1},
+                    {-2, 0, 2},
+                    {-1, 0, 1}};
+    GrayImage sobeleredX = filter(gray, sobelerX);
+    Kernel sobelerY{{-1, -2, -1},
+                    {0, 0, 0,},
+                    {1, 2, 1}};
+    GrayImage SobeleredY = filter(gray, sobelerY);
+    GrayImage Sobelered;
+    for (int i(0); i < gray.size(); ++i){
+        Sobelered.push_back(vector<double> (0));
+        for (int j(0); j < gray[0].size(); ++j)
+            Sobelered[i].push_back(0.0);
+            Sobelered[i][j] = sqrt((sobeleredX[i][j])^2) + sqrt((SobeleredY[i][j])^2);
+    }
+return {}; 
 }
 
 // ************************************
 // TASK 3: SEAM
 // ************************************
 
-Graph create_graph(const GrayImage &gray)
-{
-    return {}; // TODO MODIFY AND COMPLETE
+Graph create_graph(const GrayImage &gray){
+    
+return {}; // TODO MODIFY AND COMPLETE
 }
 
 // Return shortest path from Node from to Node to
 // The path does NOT include the from and to Node
-Path shortest_path(Graph &graph, size_t from, size_t to)
-{
+Path shortest_path(Graph &graph, size_t from, size_t to){
 
-    return {}; // TODO MODIFY AND COMPLETE
+return {}; // TODO MODIFY AND COMPLETE
 };
 
-Path find_seam(const GrayImage &gray)
-{
-    return {}; // TODO MODIFY AND COMPLETE
+Path find_seam(const GrayImage &gray){
+    
+return {}; // TODO MODIFY AND COMPLETE
 }
 
 // ***********************************
