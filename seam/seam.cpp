@@ -116,7 +116,7 @@ GrayImage filter(const GrayImage &gray, const Kernel &kernel){
 
             }
         }
-    return filtered_image;
+return filtered_image;
 }
 
 // Smooth a single-channel image
@@ -164,7 +164,7 @@ return Sobelered;
 
 Graph create_graph(const GrayImage &gray){
     
-return {}; // TODO MODIFY AND COMPLETE
+return {};
 }
 
 // Return shortest path from Node from to Node to
@@ -186,47 +186,43 @@ return {}; // TODO MODIFY AND COMPLETE
 
 // Draw a seam on a gray image
 // return a new gray image with the seam in black
-GrayImage highlight_seam(const GrayImage &gray, const Path &seam)
-{
+GrayImage highlight_seam(const GrayImage &gray, const Path &seam){
     GrayImage result(gray);
     // Paint seam in black
     for (size_t row(0); row < seam.size(); ++row) {
         result[row][seam[row]] = 0;
     }
-    return result;
+return result;
 }
 
 // Draw a seam on an RGB image
 // return a new RGB image with the seam in blue
-RGBImage highlight_seam(const RGBImage &image, const Path &seam)
-{
+RGBImage highlight_seam(const RGBImage &image, const Path &seam){
     RGBImage result(image);
     // Paint seam in blue
     for (size_t row(0); row < seam.size(); ++row) {
         result[row][seam[row]] = 0x000ff;
     }
-    return result;
+return result;
 }
 
 // Remove specified seam from a gray-scale image
 // return the new gray image (width is decreased by 1)
 
-GrayImage remove_seam(const GrayImage &gray, const Path &seam)
-{
+GrayImage remove_seam(const GrayImage &gray, const Path &seam){
     GrayImage result(gray);
     for (size_t row(0); row < seam.size(); ++row) {
         result[row].erase(result[row].begin() + seam[row]);
     }
-    return result;
+return result;
 }
 
 // Remove specified seam from an RGB image
 // return the new RGB image (width is decreased by 1)
-RGBImage remove_seam(const RGBImage &image, const Path &seam)
-{
+RGBImage remove_seam(const RGBImage &image, const Path &seam){
     RGBImage result(image);
     for (size_t row(0); row < seam.size(); ++row) {
         result[row].erase(result[row].begin() + seam[row]);
     }
-    return result;
+return result;
 }
