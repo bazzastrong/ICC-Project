@@ -149,8 +149,10 @@ return filter(gray, sobelerY);
 
 // Compute the magnitude of combined Sobel filters
 GrayImage sobel(const GrayImage &gray){
-    Kernel sobeler {{sqrt()}};
-return {}; 
+    Kernel sobeler {{sqrt(2), 2, sqrt(2)},
+                    {2, 0, 2},
+                    {sqrt(2), 2, sqrt(2)}};
+return filter(gray, sobeler); 
 }
 
 // ************************************
