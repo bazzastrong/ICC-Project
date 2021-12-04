@@ -5,6 +5,7 @@
 #include <cmath>
 
 #include "seam.h"
+#include "extension.h"
 
 using namespace std;
 
@@ -162,9 +163,34 @@ return Sobelered;
 // TASK 3: SEAM
 // ************************************
 
+// Creating a graph
 Graph create_graph(const GrayImage &gray){
+    Graph graph (gray.size() * gray[0].size());
+    size_t k(0);
+    constexpr double INF(numeric_limits <double >::max());
+        for(size_t i(0); i < gray.size() ; i++){
+            for(size_t j(0); j < gray[0].size() ; j++){
+                graph[k].successors = find_successors(k, gray);
+                graph[k].costs= gray[i][j];
+                graph[k].distance_to_target = INF; 
+                graph[k].predecessor_to_target = 0;
+                ++k;
+             }
+        }
+    graph.push_back(Node {});
+    for (size_t n(0); n < gray[0].size(); ++n){
+        graph[gray.size() * gray[0].size()].successors.push_back(size_t (n));
+    }
+    graph[gray.size() * gray[0].size()].costs = 0;
+    graph[gray.size() * gray[0].size()].distance_to_target = INF;
+    graph[gray.size() * gray[0].size()].predecessor_to_target = 0;
     
-return {};
+    graph.push_back(Node {});
+    graph[gray.size() * gray[0].size()].successors = {};
+    graph[gray.size() * gray[0].size()].costs = 0;
+    graph[gray.size() * gray[0].size()].distance_to_target = INF;
+    graph[gray.size() * gray[0].size()].predecessor_to_target = 0;
+return graph;
 }
 
 // Return shortest path from Node from to Node to
