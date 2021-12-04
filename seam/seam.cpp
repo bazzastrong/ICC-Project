@@ -186,10 +186,10 @@ Graph create_graph(const GrayImage &gray){
     graph[gray.size() * gray[0].size()].predecessor_to_target = 0;
     
     graph.push_back(Node {});
-    graph[gray.size() * gray[0].size()].successors = {};
-    graph[gray.size() * gray[0].size()].costs = 0;
-    graph[gray.size() * gray[0].size()].distance_to_target = INF;
-    graph[gray.size() * gray[0].size()].predecessor_to_target = 0;
+    graph[gray.size() * gray[0].size() + 1].successors = {};
+    graph[gray.size() * gray[0].size() + 1].costs = 0;
+    graph[gray.size() * gray[0].size() + 1].distance_to_target = INF;
+    graph[gray.size() * gray[0].size() + 1].predecessor_to_target = 0;
 return graph;
 }
 

@@ -4,7 +4,7 @@
 // from a given Node Identifier, and taking in account the different case limits. 
 std::vector<size_t> find_successors(const size_t &Identifier, const GrayImage &gray){
     std::vector<size_t> vect_successors (0);
-    if (Identifier == (gray.size() - 1) * gray[0].size()){
+    if (Identifier >= (gray.size() - 1) * gray[0].size()){
         vect_successors.push_back(size_t (gray.size() * gray[0].size() + 1));
         return vect_successors;
     }
