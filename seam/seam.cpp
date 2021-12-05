@@ -196,9 +196,24 @@ return graph;
 // Return shortest path from Node from to Node to
 // The path does NOT include the from and to Node
 Path shortest_path(Graph &graph, size_t from, size_t to){
-
-return {}; // TODO MODIFY AND COMPLETE
-};
+    Path shortest;
+    size_t width = graph[graph.size() - 2].successors.size();
+    graph[graph.size() - 2].distance_to_target = graph[graph.size() - 2].costs;
+    bool modified(true);
+    do {
+        modified = false;
+        for (int v(0); v < graph.size(); ++v){
+            for (auto successors : graph[v].successors){
+                if (graph[successors].distance_to_target > (graph[v].distance_to_target + graph[successors].costs)){
+                    graph[successors].distance_to_target = (graph[v].distance_to_target + graph[successors].costs);
+                    graph[successors].predecessor_to_target = v;
+                    modified = true;
+                }
+            }
+        }
+    } while (modified);
+return result((graph.size() - 1), graph, shortest);
+}
 
 Path find_seam(const GrayImage &gray){
     

@@ -27,4 +27,25 @@ std::vector<size_t> find_successors(const size_t &Identifier, const GrayImage &g
     vect_successors.push_back(successors_3);
 return vect_successors;
 }
+
+size_t get_row(size_t Identifier, size_t width){
+    size_t row;
+    row = Identifier / width;
+return row;
+}
+
+size_t get_col(size_t Identifier, size_t width){
+    size_t col;
+    col = Identifier - get_row(Identifier, width) * width;
+return col;
+}
+
+Path result(size_t Identifier, Graph graph, Path shortest){
+    if (Identifier == (graph.size() - 2)){
+        return shortest;
+    }
+    shortest.insert(shortest.begin(), graph[Identifier].predecessor_to_target);
+return result(graph[Identifier].predecessor_to_target, graph,shortest);
+}
+
 /* A UTILISER POUR LE CODAGE EVENTUEL D'EXTENSIONS */
