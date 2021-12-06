@@ -3,9 +3,9 @@
 
 std::vector<size_t> find_successors(const size_t &Identifier, const GrayImage &gray);
 
-size_t get_row(size_t Identifier, size_t width);
+size_t get_lineId(const size_t &Identifier, const size_t &width);
 
-size_t get_col(size_t Identifier, size_t width);
+size_t get_colId(const size_t &Identifier, const size_t &width);
 
-Path result(size_t Identifier, Graph graph, Path shortest);
+Path result(const size_t &From, const size_t &To, const Graph &graph, Path shortest);
 /* A UTILISER POUR LE CODAGE EVENTUEL D'EXTENSIONS */

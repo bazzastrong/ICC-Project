@@ -28,24 +28,32 @@ std::vector<size_t> find_successors(const size_t &Identifier, const GrayImage &g
 return vect_successors;
 }
 
-size_t get_row(size_t Identifier, size_t width){
-    size_t row;
-    row = Identifier / width;
-return row;
+// Creating a function that allows us to find the line of a 
+// given value from graph
+size_t get_lineId(const size_t &Identifier, const size_t &width){
+    size_t line;
+    line = Identifier / width;
+return line;
 }
 
-size_t get_col(size_t Identifier, size_t width){
+// Creating a function that allows us to find the column of a 
+// given value from a graph
+size_t get_colId(const size_t &Identifier, const size_t &width){
     size_t col;
-    col = Identifier - get_row(Identifier, width) * width;
+    col = Identifier - (get_lineId(Identifier, width) * width);
 return col;
 }
 
-Path result(size_t Identifier, Graph graph, Path shortest){
-    if (Identifier == (graph.size() - 2)){
+// Creating a recursive function that will call itself and insert the optimised path
+// from a given value to another 
+Path result(const size_t &From, const size_t &To, const Graph &graph, Path shortest){
+    if (graph[To].predecessor_to_target == From){
         return shortest;
     }
-    shortest.insert(shortest.begin(), graph[Identifier].predecessor_to_target);
-return result(graph[Identifier].predecessor_to_target, graph,shortest);
+    else {
+        shortest.insert(shortest.begin(), graph[To].predecessor_to_target);
+    }
+return result(From, graph[To].predecessor_to_target, graph, shortest);
 }
 
 /* A UTILISER POUR LE CODAGE EVENTUEL D'EXTENSIONS */

@@ -202,7 +202,7 @@ Path shortest_path(Graph &graph, size_t from, size_t to){
     bool modified(true);
     do {
         modified = false;
-        for (int v(0); v < graph.size(); ++v){
+        for (size_t v(0); v < graph.size(); ++v){
             for (auto successors : graph[v].successors){
                 if (graph[successors].distance_to_target > (graph[v].distance_to_target + graph[successors].costs)){
                     graph[successors].distance_to_target = (graph[v].distance_to_target + graph[successors].costs);
@@ -212,12 +212,20 @@ Path shortest_path(Graph &graph, size_t from, size_t to){
             }
         }
     } while (modified);
-return result((graph.size() - 1), graph, shortest);
+return result(from, to, graph, shortest);
 }
 
 Path find_seam(const GrayImage &gray){
-    
-return {}; // TODO MODIFY AND COMPLETE
+    Graph graph;
+    Path shortest;
+    size_t width = gray[0].size();
+    graph = create_graph(gray);
+    shortest = shortest_path(graph, graph.size() - 2, graph.size() - 1);
+    Path seam(shortest.size());
+    for (size_t i(0); i < shortest.size(); ++i) {
+        seam[i] = get_colId(shortest[i], width);
+    }
+return seam; 
 }
 
 // ***********************************
