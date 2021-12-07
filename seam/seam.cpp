@@ -59,6 +59,7 @@ return bin_RGB;
 }
 
 // Converts  RGB image to grayscale double image.
+// Converting every pixel of the Colour Image to a gray pixel using two for loops.
 GrayImage to_gray(const RGBImage &cimage){
     GrayImage cimage_in_gray;
     for (size_t i(0); i < cimage.size(); i++){
@@ -71,6 +72,7 @@ return cimage_in_gray;
 }
 
 // Converts grayscale double image to an RGB image.
+// Using two for loops, we are converting every gray pixel to its colour alternative.
 RGBImage to_RGB(const GrayImage &gimage){
     RGBImage gimage_in_col;
     for (size_t i(0); i < gimage.size(); i++){
@@ -86,8 +88,7 @@ return gimage_in_col;
 // TASK 2: FILTER
 // ***********************************
 
-// Get a pixel without accessing out of bounds
-// return nearest valid pixel color
+// Get a pixel without accessing out of bounds, returns nearest valid pixel color
 void clamp(long& val, long max){ 
     if(val<0){
         val = 0;
@@ -98,6 +99,9 @@ void clamp(long& val, long max){
 }
 
 // Convolve a single-channel image with the given kernel.
+// Using the two first for loops, we access every given pixel from the given gray image. Then 
+// With the two last for loops we map out, how given a kernel to our function, the pixel will be 
+// Modified by the kernel
 GrayImage filter(const GrayImage &gray, const Kernel &kernel){
     long s, t;
     GrayImage filtered_image;
@@ -168,15 +172,18 @@ Graph create_graph(const GrayImage &gray){
     Graph graph (gray.size() * gray[0].size());
     size_t k(0);
     constexpr double INF(numeric_limits <double >::max());
-        for(size_t i(0); i < gray.size() ; i++){
-            for(size_t j(0); j < gray[0].size() ; j++){
-                graph[k].successors = find_successors(k, gray);
-                graph[k].costs= gray[i][j];
-                graph[k].distance_to_target = INF; 
-                graph[k].predecessor_to_target = 0;
-                ++k;
-             }
+    for(size_t i(0); i < gray.size() ; i++){
+        for(size_t j(0); j < gray[0].size() ; j++){
+            // In order to find The successors we use a function that allows us to 
+            // have the case limits already defined in the function
+            graph[k].successors = find_successors(k, gray); 
+            graph[k].costs= gray[i][j];
+            graph[k].distance_to_target = INF; 
+            graph[k].predecessor_to_target = 0;
+            ++k;
         }
+    }
+    // Initializing the Beginning node 
     graph.push_back(Node {});
     for (size_t n(0); n < gray[0].size(); ++n){
         graph[gray.size() * gray[0].size()].successors.push_back(size_t (n));
@@ -184,7 +191,7 @@ Graph create_graph(const GrayImage &gray){
     graph[gray.size() * gray[0].size()].costs = 0;
     graph[gray.size() * gray[0].size()].distance_to_target = INF;
     graph[gray.size() * gray[0].size()].predecessor_to_target = 0;
-    
+    // Initializing the End node 
     graph.push_back(Node {});
     graph[gray.size() * gray[0].size() + 1].successors = {};
     graph[gray.size() * gray[0].size() + 1].costs = 0;
@@ -198,9 +205,10 @@ return graph;
 Path shortest_path(Graph &graph, size_t from, size_t to){
     Path shortest;
     size_t width = graph[graph.size() - 2].successors.size();
-    graph[graph.size() - 2].distance_to_target = graph[graph.size() - 2].costs;
+    // Reusing the Dijkstra Slgorythm provided by the instructions
+    graph[from].distance_to_target = graph[from].costs;
     bool modified(true);
-    do {
+    while (modified){
         modified = false;
         for (size_t v(0); v < graph.size(); ++v){
             for (auto successors : graph[v].successors){
@@ -211,10 +219,13 @@ Path shortest_path(Graph &graph, size_t from, size_t to){
                 }
             }
         }
-    } while (modified);
+    }
+    // Returning the Path created by our recursive function 
 return result(from, to, graph, shortest);
 }
 
+// Implementing every aspect of our project in order to return a 
+// Path with every column where the energy is the lowest
 Path find_seam(const GrayImage &gray){
     Graph graph;
     Path shortest;
@@ -256,8 +267,7 @@ return result;
 }
 
 // Remove specified seam from a gray-scale image
-// return the new gray image (width is decreased by 1)
-
+// Return the new gray image (width is decreased by 1)
 GrayImage remove_seam(const GrayImage &gray, const Path &seam){
     GrayImage result(gray);
     for (size_t row(0); row < seam.size(); ++row) {
