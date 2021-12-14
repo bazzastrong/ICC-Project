@@ -16,7 +16,7 @@ std::vector<size_t> find_successors(const size_t &Identifier, const GrayImage &g
         vect_successors.push_back(successors_2);
         vect_successors.push_back(successors_3);
         return vect_successors;
-    };
+    }
     if (successors_3 % gray[0].size() == 0){
         vect_successors.push_back(successors_1);
         vect_successors.push_back(successors_2);
@@ -26,6 +26,17 @@ std::vector<size_t> find_successors(const size_t &Identifier, const GrayImage &g
     vect_successors.push_back(successors_2);
     vect_successors.push_back(successors_3);
 return vect_successors;
+}
+
+// Creating a recursive function that will call itself and insert the optimised path
+// from a given value to another 
+Path result(const size_t &From, const size_t &To, const Graph &graph, Path shortest){
+    if (graph[To].predecessor_to_target == From){
+        return shortest;
+    } else {
+        shortest.insert(shortest.begin(), graph[To].predecessor_to_target);
+    }
+return result(From, graph[To].predecessor_to_target, graph, shortest);
 }
 
 // Creating a function that allows us to find the line of a 
@@ -42,18 +53,6 @@ size_t get_colId(const size_t &Identifier, const size_t &width){
     size_t col;
     col = Identifier - (get_lineId(Identifier, width) * width);
 return col;
-}
-
-// Creating a recursive function that will call itself and insert the optimised path
-// from a given value to another 
-Path result(const size_t &From, const size_t &To, const Graph &graph, Path shortest){
-    if (graph[To].predecessor_to_target == From){
-        return shortest;
-    }
-    else {
-        shortest.insert(shortest.begin(), graph[To].predecessor_to_target);
-    }
-return result(From, graph[To].predecessor_to_target, graph, shortest);
 }
 
 /* A UTILISER POUR LE CODAGE EVENTUEL D'EXTENSIONS */
