@@ -235,7 +235,6 @@ return graph;
 Path shortest_path(Graph &graph, size_t from, size_t to)
 {
     Path shortest;
-    size_t width = graph[graph.size() - 2].successors.size();
     // Reusing the Dijkstra Algorithm provided by the instructions
     graph[from].distance_to_target = graph[from].costs;
     bool modified(true);
