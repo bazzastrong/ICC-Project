@@ -213,19 +213,19 @@ void test_color()
         std::cerr << "With color " << color_info.name << ":" << std::endl;
         int const color = std::get<0>(color_info.fields);
         std::cerr << "Testing get_red(): ";
-        check_equal(std::get<1>(color_info.fields), get_red(color));
+        check_equal(get_red(color), std::get<1>(color_info.fields));
         std::cerr << "Testing get_green(): ";
-        check_equal(std::get<2>(color_info.fields), get_green(color));
+        check_equal(get_green(color), std::get<2>(color_info.fields));
         std::cerr << "Testing get_blue(): ";
-        check_equal(std::get<3>(color_info.fields), get_blue(color));
+        check_equal(get_blue(color), std::get<3>(color_info.fields));
         std::cerr << "Testing get_gray(): ";
-        check_equal(std::get<4>(color_info.fields), get_gray(color));
+        check_equal(get_gray(color), std::get<4>(color_info.fields));
         std::cerr << std::endl;
     }
 
     std::cerr << "Testing get_RGB(): " << std::endl;
-    check_equal(255, get_RGB(0.0, 0.0, 1.0));
-    check_equal(8355711, get_RGB(0.5));
+    check_equal(get_RGB(0.0, 0.0, 1.0), 255);
+    check_equal(get_RGB(0.5), 8355711);
 }
 
 // example in page 6:

@@ -55,4 +55,77 @@ size_t get_colId(const size_t &Identifier, const size_t &width){
 return col;
 }
 
+// Messing around with different kernels and filters
+GrayImage sharpen(const GrayImage &gray)
+{
+    Kernel sharpened {{0, -1,  0},
+                      {-1, 5, -1},
+                      {0, -1, 0}};
+return filter(gray, sharpened);
+}
+
+// Messing around with different kernels and filters
+GrayImage Gaussian_blur(const GrayImage &gray)
+{
+    Kernel blurred {{(1/16), (2/16), (1/16)},
+                    {(2/16), (4/16), (2/16)},
+                    {(1/16), (2/16), (1/16)}};
+return filter(gray, blurred);
+}
+
+// Computing the transpose of a matrix to easen up the horizontal resizing
+GrayImage matrice_transpose (const GrayImage& initial)
+{
+    GrayImage transpose(initial[0].size(), std::vector<double>(initial.size()));
+    for(size_t i(0); i<initial.size(); i++)
+    {
+        for(size_t j(0); j<initial[0].size(); j++)
+        {
+            transpose[j][i]=initial[i][j];
+        }
+    }
+return transpose;
+}
+
+// Function that will inset a pixel after the "seamed" pixel
+RGBImage dupplicate_seam(const RGBImage &image, const Path &seam)
+{
+    RGBImage result(image);
+    size_t line(0);
+    for (size_t row(0); row < seam.size(); ++row) 
+    {
+        result[row].insert(result[row].begin() + seam[row], image[line][seam[row]]);
+        ++line;
+    }
+return result;
+}
+
+// Addition that inverts the gray-scale gradients of a given grayscale image 
+GrayImage Inverted_gray(const GrayImage &image)
+{
+    GrayImage Inv_Gray(image);
+    for (int line(0); line < image.size(); ++line)
+    {
+        for (int row(0); row < image[0].size(); ++row)
+        {
+            Inv_Gray[line][row] = 1.0 - (1/256) - get_gray(image[line][row]);
+        }
+    }
+return Inv_Gray;
+}
+
+// Addition that tries to invert the RGB gradients of a given image
+RGBImage Inverted_RGB(const RGBImage &image)
+{
+    RGBImage Inv_RGB(image);
+    for (int line(0); line < image.size(); ++line)
+    {
+        for (int row(0); row < image[0].size(); ++row)
+        {
+            Inv_RGB[line][row] = 256.0 - 1.0 - image[line][row];
+        }
+    }
+return Inv_RGB;
+}
+
 /* A UTILISER POUR LE CODAGE EVENTUEL D'EXTENSIONS */

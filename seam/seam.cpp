@@ -100,7 +100,8 @@ return gimage_in_col;
 // TASK 2: FILTER
 // ***********************************
 
-// Get a pixel without accessing out of bounds, returns nearest valid pixel color
+// Get a pixel without accessing out of bounds, 
+// Returns nearest valid pixel color
 void clamp(long& val, long max)
 { 
     if(val<0)
@@ -144,34 +145,34 @@ GrayImage filter(const GrayImage &gray, const Kernel &kernel)
 return filtered_image;
 }
 
-// Smooth a single-channel image
+// Smoothens a single-channel image
 GrayImage smooth(const GrayImage &gray)
 {
     Kernel smoother {{0.10, 0.10,  0.10},
-                        {0.10, 0.20, 0.10},
-                        {0.10, 0.10, 0.10}};
+                     {0.10, 0.20, 0.10},
+                     {0.10, 0.10, 0.10}};
 return filter(gray, smoother);
 }
 
-// Compute horizontal Sobel filter
+// Computes horizontal Sobel filter
 GrayImage sobelX(const GrayImage &gray)
 {
     Kernel sobelerX {{-1, 0, 1},
-                    {-2, 0, 2},
-                    {-1, 0, 1}};
+                     {-2, 0, 2},
+                     {-1, 0, 1}};
 return filter(gray, sobelerX);
 }
 
-// Compute vertical Sobel filter
+// Computes vertical Sobel filter
 GrayImage sobelY(const GrayImage &gray)
 {
     Kernel sobelerY{{-1, -2, -1},
-                    {0, 0, 0,},
+                    {0, 0, 0},
                     {1, 2, 1}};
 return filter(gray, sobelerY);
 }
 
-// Compute the magnitude of combined Sobel filters
+// Computes the magnitude of combined Sobel filters
 GrayImage sobel(const GrayImage &gray)
 {
     GrayImage sobeleredX = sobelX(gray);
@@ -254,7 +255,7 @@ Path shortest_path(Graph &graph, size_t from, size_t to)
             }
         }
     }
-    // Returning the Path created by our recursive function 
+// Returning the Path created by our recursive function 
 return result(from, to, graph, shortest);
 }
 
