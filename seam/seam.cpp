@@ -116,7 +116,7 @@ void clamp(long& val, long max)
 
 // Convolve a single-channel image with the given kernel.
 // Using the two first for loops, we access every given pixel from the given gray image. Then 
-// With the two last for loops we map out, how given a kernel to our function, the pixel will be 
+// With the two last for loops we map out, how, giving a kernel to our function, the pixel will be 
 // Modified by the kernel
 GrayImage filter(const GrayImage &gray, const Kernel &kernel)
 {
