@@ -14,6 +14,7 @@
 #include "helper.h"
 #include "seam.h"
 #include "unit_test.h"
+#include "extension.h"
 
 void test_to_gray(std::string const& in_path);
 void test_smooth(std::string const& in_path);
@@ -102,5 +103,52 @@ void test_remove_seam(std::string const& in_path, int num)
             image = remove_seam(image, seam);
         }
         write_image(image, "test_removed_seam.png");
+    }
+};
+
+void test_to_inv_gray(std::string const& in_path)
+{
+    RGBImage image(read_image(in_path));
+    if (!image.empty()) {
+        GrayImage gray_image(to_gray(image));
+        GrayImage inv_gray_image(Inverted_gray(gray_image));
+        write_image(to_RGB(inv_gray_image), "test_inv_grayed.png");
+    }
+}
+
+void test_to_inv_RGB(std::string const& in_path)
+{
+    RGBImage image(read_image(in_path));
+    if (!image.empty()) {
+        RGBImage inv_image(Inverted_RGB(image));
+        write_image(inv_image, "test_grayed.png");
+    }
+}
+
+void test_dupplicate_seam(std::string const& in_path, int num)
+{
+    RGBImage image(read_image(in_path));
+    if (!image.empty()) {
+        for (int i = 0; i < num; ++i) {
+            GrayImage gray_image(to_gray(image));
+            GrayImage sobeled_image(sobel(smooth(gray_image)));
+            Path seam = find_seam(sobeled_image);
+            image = dupplicate_seam(image, seam);
+        }
+        write_image(image, "test_dupplicated_seam.png");
+    }
+};
+
+void test_remove_horizontal_seam(std::string const& in_path, int num)
+{
+    RGBImage image(read_image(in_path));
+    if (!image.empty()) {
+        for (int i = 0; i < num; ++i) {
+            GrayImage gray_image(matrice_transpose(to_gray(image)));
+            GrayImage sobeled_image(sobel(smooth(gray_image)));
+            Path seam = find_seam(sobeled_image);
+            image = remove_seam(image, seam);
+        }
+        write_image(image, "test_removed_horizontal_seam.png");
     }
 };
