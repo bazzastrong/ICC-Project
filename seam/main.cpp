@@ -21,6 +21,10 @@ void test_smooth(std::string const& in_path);
 void test_sobel(std::string const& in_path);
 void test_hightlight_seam(std::string const& in_path, int num);
 void test_remove_seam(std::string const& in_path, int num);
+void test_to_inv_gray(std::string const& in_path);
+void test_remove_horizontal_seam(std::string const& in_path, int num);
+void test_hightlight_horizontal_seam(std::string const& in_path, int num);
+void test_dupplicate_seam(std::string const& in_path, int num);
 
 int main(int argc, char **argv)
 {
@@ -45,6 +49,10 @@ int main(int argc, char **argv)
     int num_seam(10); /* high value will slow things down */
     test_hightlight_seam(in_path, num_seam);
     test_remove_seam(in_path, num_seam);
+    test_dupplicate_seam(in_path, num_seam);
+    test_to_inv_gray(in_path);
+    test_remove_horizontal_seam(in_path, num_seam);
+    test_hightlight_horizontal_seam(in_path, num_seam);
 
     return 0;
 }
@@ -152,3 +160,17 @@ void test_remove_horizontal_seam(std::string const& in_path, int num)
         write_image(image, "test_removed_horizontal_seam.png");
     }
 };
+
+void test_hightlight_horizontal_seam(std::string const& in_path, int num)
+{
+    RGBImage image(read_image(in_path));
+    if (!image.empty()) {
+        GrayImage gray_image(matrice_transpose(to_gray(image)));
+        for (int i = 0; i < num; ++i) {
+            GrayImage sobeled_image(sobel(smooth(gray_image)));
+            Path seam = find_seam(matrice_transpose(sobeled_image));
+            gray_image = highlight_seam(gray_image, seam);
+        }
+        write_image(to_RGB(gray_image), "test_highlighted_horizontal_seam.png");
+    }
+}
