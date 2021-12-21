@@ -41,5 +41,8 @@ into another matrix, then for every line we will insert the pixel given by the s
 
 7. BONUS: GrayImage Inverted_gray(const GrayImage &image);
           RGBImage Inverted_RGB(const RGBImage &image);
-These two functions are additions that we wanted to test out with our seams, to see what it would change. They are the 
-some principle but for two different applications (RGB colours and grayscales). To find the inverted image of a GrayImage we 
+These two functions are additions that we wanted to test out with our seams, to see what it would change. They use the 
+some principle but for two different applications (RGB colours and grayscales). after some resaearch we found out that 
+to get the opposite grayscal we needed to substract to 1.0 two components : the original grayscale tone and 1/256. 
+For the RGBImage, we decided to go trhoough the same principle but this time we had to get the different RGB values
+first.

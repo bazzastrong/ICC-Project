@@ -53,7 +53,7 @@ void test_to_gray(std::string const& in_path)
     RGBImage image(read_image(in_path));
     if (!image.empty()) {
         GrayImage gray_image(to_gray(image));
-        write_image(to_RGB(gray_image), "seam/test_grayed.png");
+        write_image(to_RGB(gray_image), "test_grayed.png");
     }
 }
 
@@ -63,7 +63,7 @@ void test_smooth(std::string const& in_path)
     if (!image.empty()) {
         GrayImage gray_image(to_gray(image));
         GrayImage smoothed_image(smooth(gray_image));
-        write_image(to_RGB(smoothed_image), "seam/test_smoothed.png");
+        write_image(to_RGB(smoothed_image), "test_smoothed.png");
     }
 };
 
@@ -73,7 +73,7 @@ void test_sobel(std::string const& in_path)
     if (!image.empty()) {
         GrayImage gray_image(to_gray(image));
         GrayImage sobeled_image(sobel(gray_image));
-        write_image(to_RGB(sobeled_image), "seam/test_sobeled.png");
+        write_image(to_RGB(sobeled_image), "test_sobeled.png");
     }
 };
 
@@ -87,7 +87,7 @@ void test_hightlight_seam(std::string const& in_path, int num)
             Path seam = find_seam(sobeled_image);
             gray_image = highlight_seam(gray_image, seam);
         }
-        write_image(to_RGB(gray_image), "seam/test_highlighted_seam.png");
+        write_image(to_RGB(gray_image), "test_highlighted_seam.png");
     }
 }
 
@@ -101,6 +101,6 @@ void test_remove_seam(std::string const& in_path, int num)
             Path seam = find_seam(sobeled_image);
             image = remove_seam(image, seam);
         }
-        write_image(image, "seam/test_removed_seam.png");
+        write_image(image, "test_removed_seam.png");
     }
 };
