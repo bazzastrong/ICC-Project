@@ -51,8 +51,8 @@ int main(int argc, char **argv)
     test_remove_seam(in_path, num_seam);
     test_dupplicate_seam(in_path, num_seam);
     test_to_inv_gray(in_path);
-    test_remove_horizontal_seam(in_path, num_seam);
     test_hightlight_horizontal_seam(in_path, num_seam);
+    test_remove_horizontal_seam(in_path, num_seam);
 
     return 0;
 }
